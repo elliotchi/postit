@@ -1,6 +1,9 @@
-import express from 'express';
-import applyMiddleware from './middleware';
+'use strict'
+
+const express = require('express');
+const applyMiddleware = require('./middleware');
 
 let app = express();
 applyMiddleware(app, express);
-export default app;
+
+module.exports = app;

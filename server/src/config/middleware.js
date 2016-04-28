@@ -1,27 +1,26 @@
-import { json, urlencoded } from 'body-parser';
-import { join } from 'path';
-import { errorHandler, errorLogger } from './utils';
-import compression from 'compression';
-import morgan from 'morgan';
+'use strict'
 
-export default (app, express) => {
+const bodyParser = require('body-parser');
+const joinPaths = require('path').join;
+const utils = require('./utils');
+const compression = require('compression');
+const morgan = require('morgan');
+
+const applyMiddleware = (app, express) => {
   app.use(morgan('dev'));
   app.use(compression());
-  app.use(json());
-  app.use(urlencoded({
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({
     extended: true
   }));
   
-  // app.use(express.static(join(__dirname, '../../../dist')));
-  
-  app.use('/', (req, res) => {
-    res.send('hi');
-  });
+  app.use(express.static(joinPaths(__dirname, '../../../dist')));
   
   // wild card
-  app.use('/*', (req, res) => {
-    res.status(400).send('404: page not found');
-  });
-  app.use(errorHandler);
-  app.use(errorLogger);
-}
+  app.use('/*', (req, res) => res.status(400).send('404'));
+  
+  app.use(utils.errorHandler);
+  app.use(utils.errorLogger);
+};
+
+module.exports = applyMiddleware;

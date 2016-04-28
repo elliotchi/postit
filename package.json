@@ -4,13 +4,11 @@
   "description": "react js course",
   "main": "index.js",
   "scripts": {
-    "start": "node server/dist/server",
+    "start": "node server/src/server",
     "start:dev": "webpack-dev-server --port 4001",
     "lint": "eslint src/.; exit 0",
     "fix": "eslint --fix src/. exit 0",
-    "start:server": "nodemon server/src/server.js --exec babel-node --presets es2015",
-    "build:server": "babel --presets es2015 server/src --out-dir server/dist",
-    "production": "webpack -p && npm run build:server",
+    "production": "webpack -p",
     "prestart": "npm run production"
 
   },
