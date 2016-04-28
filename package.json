@@ -8,9 +8,7 @@
     "start:dev": "webpack-dev-server --port 4001",
     "lint": "eslint src/.; exit 0",
     "fix": "eslint --fix src/. exit 0",
-    "production": "webpack -p",
-    "prestart": "npm run production"
-
+    "production": "webpack -p"
   },
   "author": "elliot chi",
   "license": "MIT",

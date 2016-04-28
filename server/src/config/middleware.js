@@ -14,7 +14,9 @@ const applyMiddleware = (app, express) => {
     extended: true
   }));
   
-  app.use(express.static(joinPaths(__dirname, '../../../dist')));
+  // app.use(express.static(joinPaths(__dirname, '../../../dist')));
+  
+  app.use('/', (req, res) => res.send('hi'));
   
   // wild card
   app.use('/*', (req, res) => res.status(400).send('404'));
