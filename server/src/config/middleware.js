@@ -12,7 +12,11 @@ export default (app, express) => {
     extended: true
   }));
   
-  app.use(express.static(join(__dirname, '../../../dist')));
+  // app.use(express.static(join(__dirname, '../../../dist')));
+  
+  app.use('/', (req, res) => {
+    res.send('hi');
+  });
   
   // wild card
   app.use('/*', (req, res) => {
