@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { container, navContainer, link } from './styles.css';
 
@@ -31,5 +31,9 @@ const Navigation = ({ isAuthed }) => (
     </nav>
   </div>
 )
+
+Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
+  isAuthed: PropTypes.bool.isRequired
+}
 
 export default Navigation
