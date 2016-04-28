@@ -1,7 +1,7 @@
 {
-  parser: "babel-eslint",
-  env: {
-    es6: true,
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
     "browser": true
   },
   "parser-options": {
@@ -12,8 +12,13 @@
       "experimentalObjectRestSpread ": true
     }
   },
-  extends: ["eslint:recommended", "plugin:react/recommended", "standard"],
-  plugins: [
+  "extends": ["eslint:recommended", "plugin:react/recommended", "standard"],
+  "plugins": [
     "react"
-  ]
+  ],
+  "rules": {
+    "no-extra-semi": 0,
+    "semi": 0,
+    "no-trailing-spaces": 0
+  }
 }
