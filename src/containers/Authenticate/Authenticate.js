@@ -17,7 +17,7 @@ class AuthenticateContainer extends Component {
 
   handleAuth() {
     const { fetchingUser, fetchingUserSuccess, authUser, fetchUserFailure } = this.props;
-    dispatch(fetchingUser());
+    fetchingUser();
     
     auth()
       .then(user => {
