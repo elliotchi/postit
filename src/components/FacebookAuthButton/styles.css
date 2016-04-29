@@ -1,5 +1,5 @@
 .button {
-  background: midnightblue;
+  background: #3B5998;
   color: #fff;
   padding: 15px;
   border-radius: 5px;
@@ -9,5 +9,5 @@
 }
 
 .button:hover {
-  background: mediumblue;
+  background: #1542A0;
 }
