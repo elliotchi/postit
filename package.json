@@ -10,7 +10,7 @@
     "lint": "eslint src/.; exit 0",
     "fix": "eslint --fix src/. exit 0",
     "production": "webpack -p",
-    "start:prod": "NODE_ENV=production PORT=80 forever start server/src/server.js"
+    "start:prod": "npm run production && NODE_ENV=production PORT=80 forever start server/src/server.js"
   },
   "author": "elliot chi",
   "license": "MIT",
