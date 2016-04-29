@@ -1,7 +1,9 @@
 'use strict'
 
 const utils = {
-  errorHandler: (err, req, res) => res.status(500).send({error: err.message}),
+  errorHandler: (err, req, res) => {
+    res.status(500).send({error: err.message})
+  },
   
   errorLogger: (err, req, res, next) => {
     console.error(err.stack);

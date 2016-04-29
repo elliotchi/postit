@@ -1,16 +1,16 @@
 'use strict'
 
-const bodyParser = require('body-parser');
-const joinPaths = require('path').join;
-const utils = require('./utils');
+const { json, urlencoded } = require('body-parser');
+const { join } = require('path');
+const { errorHandler, errorLogger } = require('./utils');
 const compression = require('compression');
 const morgan = require('morgan');
 
 const applyMiddleware = (app, express) => {
   app.use(morgan('dev'));
   app.use(compression());
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({
+  app.use(json());
+  app.use(urlencoded({
     extended: true
   }));
   
@@ -21,8 +21,8 @@ const applyMiddleware = (app, express) => {
   // wild card
   app.use('/*', (req, res) => res.status(400).send('404'));
   
-  app.use(utils.errorHandler);
-  app.use(utils.errorLogger);
+  app.use(errorHandler);
+  app.use(errorLogger);
 };
 
 module.exports = applyMiddleware;
