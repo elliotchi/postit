@@ -4,12 +4,13 @@
   "description": "react js course",
   "main": "index.js",
   "scripts": {
-    "start": "node server/src/server",
-    "start:dev": "webpack-dev-server --port 4001",
+    "start": "nodemon server/src/server",
+    "build:watch": "webpack --watch",
+    "start:dev": "webpack-dev-server --port 4002",
     "lint": "eslint src/.; exit 0",
     "fix": "eslint --fix src/. exit 0",
     "production": "webpack -p",
-    "start:prod": "PORT=80 node server/src/server"
+    "start:prod": "NODE_ENV=production PORT=80 node server/src/server"
   },
   "author": "elliot chi",
   "license": "MIT",
@@ -22,6 +23,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "body-parser": "^1.15.0",
     "compression": "^1.6.1",
+    "connect-history-api-fallback": "^1.2.0",
     "css-loader": "^0.23.1",
     "dotenv": "^2.0.0",
     "express": "^4.13.4",
@@ -31,8 +33,7 @@
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-router": "^2.3.0",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.13.0"
+    "style-loader": "^0.13.1"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",

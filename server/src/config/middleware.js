@@ -5,10 +5,12 @@ const { join } = require('path');
 const { errorHandler, errorLogger } = require('./utils');
 const compression = require('compression');
 const morgan = require('morgan');
+const history = require('connect-history-api-fallback');
 
 const applyMiddleware = (app, express) => {
   app.use(morgan('dev'));
   app.use(compression());
+  app.use(history());
   app.use(json());
   app.use(urlencoded({
     extended: true
