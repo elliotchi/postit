@@ -1,31 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import { Authenticate } from 'components';
-import auth from 'helpers/auth';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as userActionCreators from './../../redux/modules/users';
 
 class AuthenticateContainer extends Component {
-  propTypes: {
+  static propTypes = {
     isFetching: PropTypes.bool.isRequired,
     error: PropTypes.string.isRequired,
-    authUser: PropTypes.func.isRequired,
-    fetchingUser: PropTypes.func.isRequired,
-    fetchingUserFailure: PropTypes.func.isRequired,
-    fetchingUserSuccess: PropTypes.func.isRequired
+    fetchAndHandleAuthedUser: PropTypes.func.isRequired
+  }
+  
+  static contextTypes = {
+    router: PropTypes.object.isRequired
   }
 
-  handleAuth() {
-    const { fetchingUser, fetchingUserSuccess, authUser, fetchUserFailure } = this.props;
-    fetchingUser();
-    
-    auth()
-      .then(user => {
-        (fetchingUserSuccess(123, user, Date.now()));
-        (authUser(123));
-        console.log('authed user: ', user);
-      })
-      .catch(err => (fetchUserFailure(err)));
+  handleAuth(e) {
+    e.preventDefault();
+    const { fetchAndHandleAuthedUser } = this.props;
+    const { router } = this.context;
+    fetchAndHandleAuthedUser()
+      .then(() => router.replace('feed'));
   }
   
   render() {
@@ -35,7 +30,7 @@ class AuthenticateContainer extends Component {
         <Authenticate 
           isFetching={isFetching}
           error={error}
-          onAuth={() => this.handleAuth()}
+          onAuth={(e) => this.handleAuth(e)}
         />
       </div>
     )
@@ -49,9 +44,7 @@ const mapStateToProps = ({isFetching, error}) => {
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(userActionCreators, dispatch);
-};
+const mapDispatchToProps = (dispatch) => (bindActionCreators(userActionCreators, dispatch));
 
 export default connect(
   mapStateToProps, 

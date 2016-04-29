@@ -1,13 +1,13 @@
+import auth from 'helpers/auth';
 // Users actions
 const AUTH_USER = 'AUTH_USER';
 const UNAUTH_USER = 'UNAUTH_USER';
 const FETCHING_USER = 'FETCHING_USER';
-const FETCHING_USER_ERROR = 'FETCHING_USER_ERROR';
 const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS';
 const FETCHING_USER_FAILURE = 'FETCHING_USER_FAILURE';
 
 // when we authorize the user and get back the userID
-export const authUser = (userID) => {
+const authUser = (userID) => {
   return {
     type: AUTH_USER,
     userID
@@ -15,27 +15,27 @@ export const authUser = (userID) => {
 }
 
 // When we unauthorize the user
-export const unauthUser = () => {
+const unauthUser = () => {
   return {
     type: UNAUTH_USER
   };
 }
 // when we are fetching user information
-export const fetchingUser = () => {
+const fetchingUser = () => {
   return {
     type: FETCHING_USER
   };
 }
 // when we have an error fetching the user
-export const fetchingUserError = error => {
+const fetchingUserFailure = error => {
   return {
-    type: FETCHING_USER_ERROR,
+    type: FETCHING_USER_FAILURE,
     error
   };
 }
 
 // when we successfully fetch the user
-export const fetchingUserSuccess = (userID, user, timestamp) => {
+const fetchingUserSuccess = (userID, user, timestamp) => {
   return {
     type: FETCHING_USER_SUCCESS,
     userID,
@@ -44,6 +44,15 @@ export const fetchingUserSuccess = (userID, user, timestamp) => {
   };
 }
 
+export const fetchAndHandleAuthedUser = () => {
+  return (dispatch) => {
+    dispatch(fetchingUser())
+    return auth()
+      .then(user => dispatch(fetchingUserSuccess(user.uid, user, Date.now())))
+      .then(user => dispatch(authUser(user.uid)))
+      .catch(error => dispatch(fetchingUserFailure(error)));
+  }
+};
 
 // Users reducer
 const initialUserState = {

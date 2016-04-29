@@ -7,3 +7,5 @@ export default () => {
     }, 2000);
   });
 };
+
+export const checkIfAuthed = store => store.getState().isAuthed;
