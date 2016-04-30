@@ -1,4 +1,5 @@
-import auth, { logout } from 'helpers/auth';
+import auth, { logout, saveUser } from 'helpers/auth';
+import { formatUserInfo } from 'helpers/utils';
 // Users actions
 const AUTH_USER = 'AUTH_USER';
 const UNAUTH_USER = 'UNAUTH_USER';
@@ -7,7 +8,7 @@ const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS';
 const FETCHING_USER_FAILURE = 'FETCHING_USER_FAILURE';
 
 // when we authorize the user and get back the userID
-const authUser = (userID) => {
+export const authUser = (userID) => {
   return {
     type: AUTH_USER,
     userID
@@ -35,7 +36,7 @@ const fetchingUserFailure = error => {
 }
 
 // when we successfully fetch the user
-const fetchingUserSuccess = (userID, user, timestamp) => {
+export const fetchingUserSuccess = (userID, user, timestamp) => {
   return {
     type: FETCHING_USER_SUCCESS,
     userID,
@@ -48,8 +49,13 @@ export const fetchAndHandleAuthedUser = () => {
   return (dispatch) => {
     dispatch(fetchingUser())
     return auth()
-      .then(user => dispatch(fetchingUserSuccess(user.uid, user, Date.now())))
-      .then(user => dispatch(authUser(user.uid)))
+      .then(({uid, facebook: {displayName, profileImageURL}}) => {
+        const newUser = formatUserInfo(displayName, profileImageURL, uid);
+        
+        return dispatch(fetchingUserSuccess(uid, newUser, Date.now()));
+      })
+      .then(({user}) => saveUser(user))
+      .then(user => dispatch(authUser(user.userID)))
       .catch(error => dispatch(fetchingUserFailure(error)));
   }
 };

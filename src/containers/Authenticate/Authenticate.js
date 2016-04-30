@@ -29,8 +29,8 @@ class AuthenticateContainer extends Component {
       <div>
         <Authenticate 
           isFetching={isFetching}
-          error={error}
           onAuth={(e) => this.handleAuth(e)}
+          error={error}
         />
       </div>
     )

@@ -9,7 +9,6 @@ class MainContainer extends Component {
   }
   
   render () {
-    console.log(this.props);
     const { isAuthed } = this.props;
     return (
       <div className={container}>
