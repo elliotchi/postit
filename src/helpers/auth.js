@@ -9,3 +9,7 @@ export default () => {
 };
 
 export const checkIfAuthed = store => store.getState().isAuthed;
+
+export const logout = () => {
+  console.log('logged out');
+} 

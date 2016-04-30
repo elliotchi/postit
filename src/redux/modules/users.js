@@ -1,4 +1,4 @@
-import auth from 'helpers/auth';
+import auth, { logout } from 'helpers/auth';
 // Users actions
 const AUTH_USER = 'AUTH_USER';
 const UNAUTH_USER = 'UNAUTH_USER';
@@ -54,6 +54,13 @@ export const fetchAndHandleAuthedUser = () => {
   }
 };
 
+export const logoutAndUnauth = () => {
+  return dispatch => {
+    logout();
+    dispatch(unauthUser());
+  } 
+}
+
 // Users reducer
 const initialUserState = {
   lastUpdated: 0,
@@ -97,7 +104,7 @@ export default (state = initialState, action) => {
     case UNAUTH_USER:
       return {
         ...state,
-        isAuthed: true,
+        isAuthed: false,
         authedID: action.userID
       }
 
