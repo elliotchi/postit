@@ -24,6 +24,7 @@ export const logout = () =>
 ref.unauth()
 
 export const saveUser = user => {
+  console.log(user);
   return ref.child(`users/${user.userID}`)
     .set(user)
     .then(() => user)
