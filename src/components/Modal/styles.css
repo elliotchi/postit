@@ -1,0 +1,39 @@
+.newPostTop {
+  background: #fff;
+  padding: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #40a070;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.newPostInputContainer {
+  composes: baseTextAreaContainer from 'sharedStyles/styles.css';
+}
+
+.newPostInput {
+  composes: baseTextArea from 'sharedStyles/styles.css';
+  border-width: 0;
+}
+
+.darkBtn {
+  composes: darkBtn from 'sharedStyles/styles.css';
+  text-decoration: none;
+}
+
+.submitPostBtn {
+  composes: darkBtn;
+  margin: 0px auto;
+  width: 150px;
+  text-align: center;
+  display: block;
+}
+
+.submitPostBtn:disabled {
+  background: #C6C6C6;
+  border: 1px solid #C6C6C6;
+}

@@ -9,7 +9,7 @@ export const checkIfAuthed = store => {
   const authData = ref.getAuth();
   if (authData === null) {
     return false;
-  } else if (store.getState().isAuthed === false) {
+  } else if (store.getState().users.isAuthed === false) {
     const { userID, facebook: {displayName, profileImageURL} } = authData;
     const userInfo = formatUserInfo(displayName, profileImageURL, userID);
     

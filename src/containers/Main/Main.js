@@ -22,5 +22,5 @@ class MainContainer extends Component {
 }
 
 export default connect(
-  ({isAuthed}) => ({isAuthed})
+  ({users: {isAuthed}}) => ({isAuthed})
 )(MainContainer);

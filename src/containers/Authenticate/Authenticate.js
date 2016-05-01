@@ -37,7 +37,7 @@ class AuthenticateContainer extends Component {
   }
 }
 
-const mapStateToProps = ({isFetching, error}) => {
+const mapStateToProps = ({users: {isFetching, error}}) => {
   return {
     isFetching,
     error 
