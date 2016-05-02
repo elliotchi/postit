@@ -30,7 +30,7 @@ export const fetchingUsersPostsSuccess = (userID, postIds, lastUpdated) => (
 // add single users posts
 export const addSingleUsersPost = (userID, postID) => (
   {
-    typu: ADD_SINGLE_USERS_POST,
+    type: ADD_SINGLE_USERS_POST,
     userID,
     postID
   }
