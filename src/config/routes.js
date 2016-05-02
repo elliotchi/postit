@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, LogoutContainer } from 'containers';
+import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, LogoutContainer, UserContainer } from 'containers';
 
 export default (checkAuth) => {
   return (
@@ -10,6 +10,7 @@ export default (checkAuth) => {
         <Route path='auth' component={AuthenticateContainer} onEnter={checkAuth}/>
         <Route path='feed' component={FeedContainer} onEnter={checkAuth} />
         <Route path='logout' component={LogoutContainer} />
+        <Route path='/:userID' component={UserContainer} />
       </Router>
     </Router>
   )

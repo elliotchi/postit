@@ -5,3 +5,4 @@ export FeedContainer from './Feed/Feed';
 export LogoutContainer from './Logout/Logout';
 export ModalContainer from './Modal/Modal';
 export PostContainer from './Post/Post';
+export UserContainer from './User/User';

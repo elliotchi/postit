@@ -60,3 +60,9 @@ export const decrementNumberOfLikes = postID => (
   ref.child(`likeCount/${postID}`)
     .transaction((current = 0) => current - 1)
 );
+
+export const fetchUser = userID => ref.child(`users/${userID}`).once('value')
+  .then(snapshot => snapshot.val())
+
+export const fetchUsersPosts = userID => ref.child(`usersPosts/${userID}`).once('value')
+  .then(snapshot => snapshot.val() || {})

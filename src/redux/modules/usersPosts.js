@@ -1,3 +1,6 @@
+import { fetchUsersPosts } from 'helpers/api';
+import { addMultiplePosts } from './posts';
+
 export const FETCHING_USERS_POSTS = 'FETCHING_USERS_POSTS';
 export const FETCHING_USERS_POSTS_ERROR = 'FETCHING_USERS_POSTS_ERROR';
 export const FETCHING_USERS_POSTS_SUCCESS = 'FETCHING_USERS_POSTS_SUCCESS';
@@ -35,6 +38,20 @@ export const addSingleUsersPost = (userID, postID) => (
     postID
   }
 );
+
+export const fetchAndHandlerUsersPosts = userID => 
+  (dispatch) => {
+    dispatch(fetchingUsersPosts())
+
+    fetchUsersPosts(userID)
+      .then(posts => dispatch(addMultiplePosts(posts)))
+      .then(({posts}) => dispatch(fetchingUsersPostsSuccess(
+        userID, 
+        Object.keys(posts).sort((a, b) => posts[b].timestamp - posts[a].timestamp),
+        Date.now()
+      )))
+      .catch(error => dispatch(fetchingUsersPostsError(error)));
+  }
 
 const initialUsersPostState = {
   lastUpdated: 0,

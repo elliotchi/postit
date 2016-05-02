@@ -1,5 +1,6 @@
 import auth, { logout, saveUser } from 'helpers/auth';
 import { formatUserInfo } from 'helpers/utils';
+import { fetchUser } from 'helpers/api';
 // Users actions
 const AUTH_USER = 'AUTH_USER';
 const UNAUTH_USER = 'UNAUTH_USER';
@@ -45,6 +46,14 @@ export const fetchingUserSuccess = (userID, user, timestamp) => {
   };
 }
 
+export const fetchAndHandleUser = (userID) => 
+  (dispatch) => {
+    dispatch(fetchingUser())
+    return fetchUser(userID)
+      .then(user => dispatch(fetchingUserSuccess(userID, user, Date.now())))
+      .catch(error => dispatch(fetchingUserFailure(error)));
+  }
+
 export const fetchAndHandleAuthedUser = () => {
   return (dispatch) => {
     dispatch(fetchingUser())
@@ -76,7 +85,6 @@ const initialUserState = {
     avatar: ''
   }
 }
-
 
 export const user = (state = initialUserState, action) => {
   switch (action.type) {

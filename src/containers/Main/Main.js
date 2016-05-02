@@ -18,7 +18,7 @@ class MainContainer extends Component {
     }
   }
 
-  componentWillRecieveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     const { isAuthed, setUsersLikes } = this.props;
     if (isAuthed !== nextProps.isAuthed) {
       setUsersLikes();
