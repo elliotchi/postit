@@ -1,3 +1,7 @@
+import { addListener } from 'redux/modules/listeners';
+import { listenToFeed } from 'helpers/api';
+import { addMultiplePosts } from './posts';
+
 export const SETTING_FEED_LISTENER = 'SETTING_FEED_LISTENER';
 export const SETTING_FEED_LISTENER_ERROR = 'SETTING_FEED_LISTENER_ERROR';
 export const SETTING_FEED_LISTENER_SUCCESS = 'SETTING_FEED_LISTENER_SUCCESS';
@@ -39,9 +43,27 @@ export const resetNewPostsAvailable = () => {
   };
 };
 
+export const setAndHandleFeedListener = () => {
+  let initialFetch = true;
+  
+  return (dispatch, getState) => {
+    if (getState().listeners.feed) {
+      return;
+    }
+    
+    dispatch(addListener('feed'));
+    dispatch(settingFeedListener());
+    
+    listenToFeed(({feed, sortedIds}) => {
+      dispatch(addMultiplePosts(feed));
+      initialFetch ? dispatch(settingFeedListenerSuccess(sortedIds)) : dispatch(addNewPostIdToFeed(sortedIds[0]));
+    }, error => dispatch(settingFeedListenerError(error)));
+  }
+};
+
 const initialState = {
   newPostsAvailable: false,
-  newPostsToAdd = [],
+  newPostsToAdd: [],
   isFetching: false,
   error: '',
   postIds: []
@@ -52,8 +74,7 @@ export default (state = initialState, action) => {
     case SETTING_FEED_LISTENER:
       return {
         ...state,
-        isFetching: false,
-        error: action.error
+        isFetching: false
       };
       
     case SETTING_FEED_LISTENER_ERROR:
@@ -80,5 +101,5 @@ export default (state = initialState, action) => {
       
     default:
       return state;
-  }; 
+  }
 };

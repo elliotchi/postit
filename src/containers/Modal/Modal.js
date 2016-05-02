@@ -3,6 +3,7 @@ import { Modal } from 'components';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 import * as modalActionCreeators from 'redux/modules/modal';
+import * as postsActionCreators from 'redux/modules/posts';
 
 const mapStateToProps = ({modal: {postText, isOpen, isSubmitDisabled}, users}) => (
   {
@@ -14,7 +15,10 @@ const mapStateToProps = ({modal: {postText, isOpen, isSubmitDisabled}, users}) =
 );
 
 const mapDispatchToProps = dispatch => (
-  bindActionCreators(modalActionCreeators, dispatch)
+  bindActionCreators({
+    ...modalActionCreeators,
+    ...postsActionCreators
+  }, dispatch)
 )
 
 export default connect(

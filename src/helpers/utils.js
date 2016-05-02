@@ -5,3 +5,14 @@ export const formatUserInfo = (name, avatar, userID) => (
     userID
   }
 );
+
+
+export const formatPost = (text, {name, avatar, userID}) => (
+  {
+    text,
+    name,
+    avatar,
+    userID,
+    timestamp: Date.now()
+  }
+);

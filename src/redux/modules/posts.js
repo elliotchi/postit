@@ -1,3 +1,7 @@
+import { savePost } from 'helpers/api';
+import { closeModal } from './modal';
+import { addSingleUsersPost } from './usersPosts';
+
 export const FETCHING_POST = 'FETCHING_POST';
 export const FETCHING_POST_ERROR = 'FETCHING_POST_ERROR';
 export const FETCHING_POST_SUCCESS = 'FETCHING_POST_SUCCESS';
@@ -29,7 +33,7 @@ export const fetchingPostSuccess = post => {
 // remove the fetching status => true
 export const removeFetching = () => {
   return {
-    type: REMOVE_FETCHING;
+    type: REMOVE_FETCHING
   }
 };
 // add post
@@ -37,6 +41,21 @@ export const addPost = post => {
   return {
     type: ADD_POST,
     post
+  }
+};
+
+export const postFanOut = post => {
+  return (dispatch, getState) => {
+    const userID = getState().users.authedID;
+    savePost(post)
+      .then(newPost => {
+        dispatch(addPost(newPost));
+        dispatch(closeModal());
+        dispatch(addSingleUsersPost(userID, newPost.postID));
+      })
+      .catch(err => {
+        console.warn('error: ', err);
+      });
   }
 };
 // add multiple posts
@@ -93,5 +112,5 @@ export default (state = initialState, action) => {
       
     default:
       return state;
-  };
+  }
 };

@@ -4,6 +4,7 @@ import {
   newPostTop, pointer, newPostInputContainer,
   newPostInput, submitPostBtn, darkBtn
 } from './styles.css';
+import { formatPost } from 'helpers/utils';
 
 const modalStyles = {
   content: {
@@ -16,9 +17,9 @@ const modalStyles = {
   }
 }
 
-const Modal = ({openModal, isOpen, closeModal, postText, isSubmitDisabled, updatePostText, user}) => {
+const Modal = ({openModal, isOpen, closeModal, postText, isSubmitDisabled, updatePostText, user, postFanOut}) => {
   const submitPost = () => {
-    console.log(postText, user)
+    postFanOut(formatPost(postText, user));
   }
   return (
     <span className={darkBtn} onClick={openModal}>
@@ -55,7 +56,8 @@ Modal.propTypes = {
   isSubmitDisabled: bool.isRequired,
   openModal: func.isRequired,
   closeModal: func.isRequired,
-  updatePostText: func.isRequired
+  updatePostText: func.isRequired,
+  postFanOut: func.isRequired
 }
 
 export default Modal;

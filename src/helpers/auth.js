@@ -10,11 +10,11 @@ export const checkIfAuthed = store => {
   if (authData === null) {
     return false;
   } else if (store.getState().users.isAuthed === false) {
-    const { userID, facebook: {displayName, profileImageURL} } = authData;
-    const userInfo = formatUserInfo(displayName, profileImageURL, userID);
+    const { uid, facebook: {displayName, profileImageURL} } = authData;
+    const userInfo = formatUserInfo(displayName, profileImageURL, uid);
     
-    store.dispatch(authUser(userID))
-    store.dispatch(fetchingUserSuccess(userID, userInfo, Date.now()));
+    store.dispatch(authUser(uid))
+    store.dispatch(fetchingUserSuccess(uid, userInfo, Date.now()));
   }
   
   return true;
@@ -24,7 +24,6 @@ export const logout = () =>
 ref.unauth()
 
 export const saveUser = user => {
-  console.log(user);
   return ref.child(`users/${user.userID}`)
     .set(user)
     .then(() => user)
