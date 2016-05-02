@@ -85,7 +85,7 @@ export default (state = initialState, action) => {
       }
       
     case ADD_SINGLE_USERS_POST:
-      return !!state[action.userID] ? state : {
+      return state[action.userID] ? state : {
         ...state,
         isFetching: false,
         error: '',

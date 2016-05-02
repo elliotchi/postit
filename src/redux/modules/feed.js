@@ -45,18 +45,18 @@ export const resetNewPostsAvailable = () => {
 
 export const setAndHandleFeedListener = () => {
   let initialFetch = true;
-  
+
   return (dispatch, getState) => {
     if (getState().listeners.feed) {
       return;
     }
-    
+
     dispatch(addListener('feed'));
-    dispatch(settingFeedListener());
-    
+    dispatch(settingFeedListener())
     listenToFeed(({feed, sortedIds}) => {
       dispatch(addMultiplePosts(feed));
       initialFetch ? dispatch(settingFeedListenerSuccess(sortedIds)) : dispatch(addNewPostIdToFeed(sortedIds[0]));
+      initialFetch = false;
     }, error => dispatch(settingFeedListenerError(error)));
   }
 };
@@ -74,7 +74,7 @@ export default (state = initialState, action) => {
     case SETTING_FEED_LISTENER:
       return {
         ...state,
-        isFetching: false
+        isFetching: true
       };
       
     case SETTING_FEED_LISTENER_ERROR:
@@ -87,9 +87,18 @@ export default (state = initialState, action) => {
     case SETTING_FEED_LISTENER_SUCCESS:
       return {
         ...state,
+        isFetching: false,
+        error: '',
+        postIds: action.postIds,
+        newPostsAvailable: false
+      };
+
+    case ADD_NEW_POST_ID_TO_FEED:
+      return {
+        ...state,
         newPostsToAdd: [action.postID, ...state.newPostsToAdd],
         newPostsAvailable: true
-      };
+      }
     
     case RESET_NEW_POSTS_AVAILABLE:
       return {

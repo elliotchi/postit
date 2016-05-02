@@ -1,0 +1,17 @@
+.newPostContainer {
+  composes: basePostContainer from 'sharedStyles/styles.css';
+  background: #40a070;
+  color: #fff;
+  text-align: center;
+}
+
+.newPostContainer:hover {
+  background: #40a076;
+  color: #fff;
+}
+
+.header {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 100;
+}

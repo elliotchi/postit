@@ -6,6 +6,7 @@ import * as feedActionCreators from 'redux/modules/feed';
 
 class FeedContainer extends Component {
   static propTypes = {
+    postIds: PropTypes.array.isRequired,
     newPostsAvailable: PropTypes.bool.isRequired,
     error: PropTypes.string.isRequired,
     isFetching: PropTypes.bool.isRequired,
@@ -19,24 +20,26 @@ class FeedContainer extends Component {
   }
   
   render() {
-    const { newPostsAvailable, error, isFetching, resetNewPostsAvailable } = this.props;
+    const { newPostsAvailable, error, isFetching, resetNewPostsAvailable, postIds } = this.props;
     return (
       <Feed 
         newPostsAvailable={newPostsAvailable}
         error={error}
         isFetching={isFetching}
         resetNewPostsAvailable={resetNewPostsAvailable}
+        postIds={postIds}
       />
     );
   }
 }
 
 const mapStateToProps = ({feed}) => {
-  const { newPostsAvailable, error, isFetching } = feed;
+  const { newPostsAvailable, error, isFetching, postIds } = feed;
   return {
     newPostsAvailable,
     error,
-    isFetching
+    isFetching,
+    postIds
   }  
 };
 
