@@ -6,7 +6,7 @@ import Star from 'react-icons/lib/fa/star';
 import {
   postContainer, contentContainer, avatar, actionContainer,
   header, text, likeReplyContainer, icon, likedIcon, author
-} from './style.css';
+} from './styles.css';
 
 const { string, number, func, bool, shape } = PropTypes;
 
