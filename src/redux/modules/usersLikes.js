@@ -38,7 +38,7 @@ export const fetchingLikesError = error => (
   }
 );
 // success fetching likes
-export const FETCHING_USER_SUCCESS = likes => (
+export const fetchingLikesSuccess = likes => (
   {
     type: FETCHING_LIKES_SUCCESS,
     likes    
@@ -81,6 +81,15 @@ export const handleDeleteLike = (postID, e) => {
     })    
   }
 };
+
+export const setUsersLikes = () => 
+  (dispatch, getState) => {
+    const userID = getState().users.authedID;
+    dispatch(fetchingLikes());
+    fetchUsersLikes(userID)
+      .then(likes => dispatch(fetchingLikesSuccess(likes)))
+      .catch(error => dispatch(fetchingLikesError(error)));
+  }
 
 // usersLikes
 const initialState = {
