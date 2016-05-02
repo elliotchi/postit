@@ -21,11 +21,9 @@ class PostContainer extends Component {
     addAndHandleLike: func.isRequired
   }
 
-  getDefaultProps() {
-    return {
-      hideReplyBtn: false,
-      hideLikeCount: true
-    }
+  static defaultProps = {
+    hideReplyBtn: false,
+    hideLikeCount: true
   }
 
   goToProfile(e) {
@@ -56,10 +54,10 @@ class PostContainer extends Component {
 
 const mapStateToProps = ({posts, likeCount, usersLikes}, {postID, hideLikeCount, hideReplyBtn}) => (
   {
-    posts: posts[postID],
+    post: posts[postID],
     hideLikeCount,
     hideReplyBtn,
-    isLiked: usersLikes[postID],
+    isLiked: usersLikes[postID] === true,
     numberOfLikes: likeCount[postID]
   }
 );
