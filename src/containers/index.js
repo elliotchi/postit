@@ -6,3 +6,4 @@ export LogoutContainer from './Logout/Logout';
 export ModalContainer from './Modal/Modal';
 export PostContainer from './Post/Post';
 export UserContainer from './User/User';
+export PostDetailContainer from './PostDetail/PostDetail';

@@ -66,3 +66,10 @@ export const fetchUser = userID => ref.child(`users/${userID}`).once('value')
 
 export const fetchUsersPosts = userID => ref.child(`usersPosts/${userID}`).once('value')
   .then(snapshot => snapshot.val() || {})
+
+export const fetchPost = postID => ref.child(`posts/${postID}`).once('value')
+  .then(snapshot => snapshot.val())
+
+export const fetchLikeCount = postID => ref.child(`likeCount/${postID}`).once('value')
+  .then(snapshot => snapshot.val() || 0)
+

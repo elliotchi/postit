@@ -1,8 +1,8 @@
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, LogoutContainer, UserContainer } from 'containers';
+import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, LogoutContainer, UserContainer, PostDetailContainer } from 'containers';
 
-export default (checkAuth) => {
+export default checkAuth => {
   return (
     <Router history={browserHistory}>
       <Router path='/' component={MainContainer}>
@@ -10,7 +10,8 @@ export default (checkAuth) => {
         <Route path='auth' component={AuthenticateContainer} onEnter={checkAuth}/>
         <Route path='feed' component={FeedContainer} onEnter={checkAuth} />
         <Route path='logout' component={LogoutContainer} />
-        <Route path='/:userID' component={UserContainer} />
+        <Route path='/:userID' component={UserContainer} onEnter={checkAuth} />
+        <Route path='/postDetail/:postID' component={PostDetailContainer} onEnter={checkAuth} />
       </Router>
     </Router>
   )

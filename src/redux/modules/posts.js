@@ -1,4 +1,4 @@
-import { savePost } from 'helpers/api';
+import { savePost, fetchPost } from 'helpers/api';
 import { closeModal } from './modal';
 import { addSingleUsersPost } from './usersPosts';
 
@@ -65,6 +65,13 @@ export const addMultiplePosts = posts => {
     posts
   };
 };
+
+export const fetchAndHandlePost = postID => dispatch => {
+  dispatch(fetchingPost());
+  fetchPost(postID)
+    .then(post => dispatch(fetchingPostSuccess(post)))
+    .catch(error => dispatch(fetchingPostError(error)));
+}
 
 // posts reducer
 
