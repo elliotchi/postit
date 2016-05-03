@@ -8,7 +8,6 @@ export const formatUserInfo = (name, avatar, userID) => (
   }
 );
 
-
 export const formatPost = (text, {name, avatar, userID}) => (
   {
     text,
@@ -29,3 +28,13 @@ const getMilliseconds = timestamp => new Date().getTime() - new Date(timestamp).
 export const staleUser = timestamp => getMilliseconds(timestamp) > usersExpirationLength
 
 export const stalePosts = timestamp => getMilliseconds(timestamp) > usersPostsExpirationLength
+
+export const formatReply = ({name, userID, avatar}, reply) => {
+  return {
+    name,
+    reply,
+    userID,
+    avatar,
+    timestamp: Date.now()
+  }
+};

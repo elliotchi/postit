@@ -6,3 +6,4 @@ export usersPosts from './usersPosts';
 export listeners from './listeners';
 export likeCount from './likeCount';
 export usersLikes from './usersLikes';
+export replies from './replies';

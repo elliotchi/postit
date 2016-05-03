@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { PostDetail } from 'components';
 import * as postActionCreators from 'redux/modules/posts';
 import * as likeCountActionCreators from 'redux/modules/likeCount';
+import * as repliesActionCreators from 'redux/modules/replies';
 
 class PostDetailContainer extends Component {
   static propTypes = {
@@ -13,7 +14,8 @@ class PostDetailContainer extends Component {
     error: PropTypes.string.isRequired,
     postAlreadyFetched: PropTypes.bool.isRequired,
     fetchAndHandlePost: PropTypes.func.isRequired,
-    initLikeFetch: PropTypes.func.isRequired
+    initLikeFetch: PropTypes.func.isRequired,
+    addAndHandleReply: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -27,9 +29,10 @@ class PostDetailContainer extends Component {
   }
 
   render() {
-    const { authedUser, postID, isFetching, error } = this.props;
+    const { authedUser, postID, isFetching, error, addAndHandleReply } = this.props;
     return (
       <PostDetail 
+        addAndHandleReply={addAndHandleReply}
         authedUser={authedUser}
         postID={postID}
         isFetching={isFetching}
@@ -51,7 +54,8 @@ const mapStateToProps = ({posts, likeCount, users}, {routeParams: {postID}}) => 
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   ...postActionCreators,
-  ...likeCountActionCreators
+  ...likeCountActionCreators,
+  ...repliesActionCreators
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetailContainer);

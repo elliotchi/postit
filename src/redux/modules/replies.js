@@ -1,3 +1,5 @@
+import { postReply } from 'helpers/api';
+
 export const ADD_REPLY = 'ADD_REPLY';
 export const ADD_REPLY_ERROR = 'ADD_REPLY_ERROR';
 export const REMOVE_REPLY = 'REMOVE_REPLY';
@@ -8,9 +10,11 @@ export const FETCHING_REPLIES_SUCCESS = 'FETCHING_REPLIES_SUCCESS';
 // replies on each post actions
 // add a reply to a post
 export const addReply = (postID, reply) => {
-  type: ADD_REPLY,
-  postID,
-  reply
+  return {
+    type: ADD_REPLY,
+    postID,
+    reply
+  };
 }
 // add reply error
 export const addReplyError = error => {
@@ -49,6 +53,16 @@ export const fetchingRepliesSuccess = (replies, postID, lastUpdated) => {
   };
 };
 
+export const addAndHandleReply = (postID, reply) => dispatch => {
+  const { replyWithID, replyPromise } = postReply(postID, reply);
+
+  dispatch(addReply(postID, replyWithID));
+  replyPromise.catch(error => {
+    dispatch(removeReply(postID, replyWithID.replyID));
+    dispatch(addReplyError(error));
+  });
+};
+
 const initialReply = {
   name: '',
   reply: '',
@@ -82,7 +96,7 @@ const initialPostState = {
   replies: {}
 };
 
-const repliesAndLastUpdated = (state = initialPostState, action) {
+const repliesAndLastUpdated = (state = initialPostState, action) => {
   switch (action.type) {
     case FETCHING_REPLIES_SUCCESS:
       return {
@@ -100,7 +114,7 @@ const repliesAndLastUpdated = (state = initialPostState, action) {
       
     default:
       return state;
-  };
+  }
 };
 
 const initialState = {
@@ -117,7 +131,7 @@ export default (state = initialState, action) => {
       }
       
     case FETCHING_REPLIES_ERROR:
-    case ADD_REPLY_ERROR
+    case ADD_REPLY_ERROR:
       return {
         ...state,
         isFetching: false,
@@ -135,6 +149,6 @@ export default (state = initialState, action) => {
       
     default:
       return state;
-  };
+  }
 };
 
