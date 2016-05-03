@@ -3,7 +3,7 @@ import {
   mainContainer, container, content, repliesContainer,
   replyTextAreaContainer, replyTextArea } from './styles.css';
 import { subHeader, darkBtn, errorMsg } from 'sharedStyles/styles.css';
-import { PostContainer } from 'containers';
+import { PostContainer, RepliesContainer } from 'containers';
 import { formatReply } from 'helpers/utils';
 
 const Reply = ({submit}) => {
@@ -40,7 +40,7 @@ const PostDetail = ({authedUser, postID, isFetching, error, addAndHandleReply}) 
             <Reply submit={replyText => addAndHandleReply(postID, formatReply(authedUser, replyText))} />
           </div>
           <div className={repliesContainer}>
-            reply section
+            <RepliesContainer postID={postID} />
           </div>
         </div>
     }

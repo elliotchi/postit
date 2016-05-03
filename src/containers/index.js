@@ -7,3 +7,4 @@ export ModalContainer from './Modal/Modal';
 export PostContainer from './Post/Post';
 export UserContainer from './User/User';
 export PostDetailContainer from './PostDetail/PostDetail';
+export RepliesContainer from './Replies/Replies';

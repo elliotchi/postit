@@ -8,3 +8,4 @@ export Modal from './Modal/Modal';
 export Post from './Post/Post';
 export User from './User/User';
 export PostDetail from './PostDetail/PostDetail';
+export Replies from './Replies/Replies';

@@ -1,26 +1,26 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { container, navContainer, link } from './styles.css';
 import { ModalContainer } from 'containers';
 
 const NavLinks = ({ isAuthed }) => (
-  isAuthed ?
-  <ul>
-    <li>
-      <Link className={link} to='/'>{'Home'}</Link>
-    </li>
-  </ul> : null
+  isAuthed 
+  ? <ul>
+      <li>
+        <Link className={link} to='/'>{'Home'}</Link>
+      </li>
+    </ul> : null
 )
 
 const ActionLinks = ({ isAuthed }) => (
-  isAuthed ?
-    <ul>
+  isAuthed 
+  ? <ul>
       <li><ModalContainer /></li>
       <li><Link className={link} to='/logout'>{'Logout'}</Link></li>
-    </ul> :
-    <ul>
+    </ul> 
+  : <ul>
       <li><Link className={link} to='/'>{'Home'}</Link></li>
-      <li><Link className={link} to='/auth'>{'Authenticated'}</Link></li>
+      <li><Link className={link} to='/auth'>{'Authenticate'}</Link></li>
     </ul>
 )
 
