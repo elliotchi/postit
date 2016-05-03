@@ -1,10 +1,10 @@
 import React from 'react';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
 import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, LogoutContainer, UserContainer, PostDetailContainer } from 'containers';
 
-export default checkAuth => {
+export default (checkAuth, history) => {
   return (
-    <Router history={browserHistory}>
+    <Router history={history}>
       <Router path='/' component={MainContainer}>
         <IndexRoute component={HomeContainer} onEnter={checkAuth} />
         <Route path='auth' component={AuthenticateContainer} onEnter={checkAuth}/>
