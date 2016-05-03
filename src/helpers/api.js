@@ -83,3 +83,6 @@ export const postReply = (postID, reply) => {
     replyPromise
   };
 }
+
+export const fetchReplies = postID => ref.child(`replies/${postID}`).once('value')
+  .then(snapshot => snapshot.val() || {})

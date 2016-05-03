@@ -1,4 +1,4 @@
-import { usersExpirationLength, usersPostsExpirationLength } from 'config/constants';
+import { usersExpirationLength, usersPostsExpirationLength, repliesExpirationLength } from 'config/constants';
 
 export const formatUserInfo = (name, avatar, userID) => (
   {
@@ -28,6 +28,8 @@ const getMilliseconds = timestamp => new Date().getTime() - new Date(timestamp).
 export const staleUser = timestamp => getMilliseconds(timestamp) > usersExpirationLength
 
 export const stalePosts = timestamp => getMilliseconds(timestamp) > usersPostsExpirationLength
+
+export const staleReplies = timestamp => getMilliseconds(timestamp) > repliesExpirationLength
 
 export const formatReply = ({name, userID, avatar}, reply) => {
   return {
