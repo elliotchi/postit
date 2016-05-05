@@ -30,14 +30,14 @@ class PostContainer extends Component {
     const { router } = this.context;
     const { post } = this.props;
     e.stopPropagation();
-    router.push(`/${post.userID}`);
+    router.push(`/${post.get('userID')}`);
   }
 
   handleClick(e) {
     e.stopPropagation();
     const { router } = this.context;
     const { post } = this.props;
-    router.push(`/postDetail/${post.postID}`);
+    router.push(`/postDetail/${post.get('postID')}`);
   }
 
   render() {
@@ -54,7 +54,7 @@ class PostContainer extends Component {
 
 const mapStateToProps = ({posts, likeCount, usersLikes}, {postID, hideLikeCount, hideReplyBtn}) => (
   {
-    post: posts[postID],
+    post: posts.get(postID),
     hideLikeCount,
     hideReplyBtn,
     isLiked: usersLikes[postID] === true,

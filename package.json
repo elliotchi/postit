@@ -29,6 +29,7 @@
     "express": "^4.13.4",
     "firebase": "^2.4.2",
     "html-webpack-plugin": "^2.16.0",
+    "immutable": "^3.8.1",
     "morgan": "^1.7.0",
     "path": "^0.12.7",
     "react": "^15.0.1",
@@ -39,6 +40,7 @@
     "react-router": "^2.3.0",
     "react-router-redux": "^4.0.4",
     "redux": "^3.5.2",
+    "redux-promise": "^0.5.3",
     "redux-thunk": "^2.0.1",
     "style-loader": "^0.13.1"
   },

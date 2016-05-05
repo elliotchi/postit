@@ -1,6 +1,7 @@
 import { savePost, fetchPost } from 'helpers/api';
 import { closeModal } from './modal';
 import { addSingleUsersPost } from './usersPosts';
+import { Map, fromJS } from 'immutable';
 
 export const FETCHING_POST = 'FETCHING_POST';
 export const FETCHING_POST_ERROR = 'FETCHING_POST_ERROR';
@@ -75,47 +76,40 @@ export const fetchAndHandlePost = postID => dispatch => {
 
 // posts reducer
 
-const initialState = {
+const initialState = Map({
   isFetching: true,
   error: ''
-}
+});
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCHING_POST:
-      return {
-        ...state,
+      return state.merge({
         isFetching: true
-      };
+      });
       
     case ADD_POST:
     case FETCHING_POST_SUCCESS:
-      return {
-        ...state,
+      return state.merge({
         error: '',
         isFetching: false,
         [action.post.postID]: action.post
-      };
+      });
     
     case FETCHING_POST_ERROR:
-      return {
-        ...state,
+      return state.merge({
         error: action.error,
         isFetching: false
-      };
+      });
     
     case REMOVE_FETCHING:
-      return {
-        ...state,
+      return state.merge({
         error: '',
         isFetching: false
-      };
+      });
       
     case ADD_MULTIPLE_POSTS:
-      return {
-        ...state,
-        ...action.posts
-      }
+      return state.merge(action.posts)
       
     default:
       return state;

@@ -19,7 +19,7 @@ const Post = ({post: {avatar, name, timestamp, text, postID}, onClick, isLiked, 
       className={postContainer}
       style={{cursor: hideReplyBtn ? 'default' : 'pointer'}}
       onClick={onClick}>
-        <img src={avatar} className={avatar} />
+        <img src={post.get('avatar')} className={avatar} />
         <div className={contentContainer}>
           <div className={header}>
             <div onClick={goToProfile} className={author}>{name}</div>
